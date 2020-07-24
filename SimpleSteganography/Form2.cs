@@ -56,7 +56,7 @@ namespace SimpleSteganography
                         int value = Convert.ToInt32(letter);                                    //message harfi tek tek alınarak ascii koduna çevrilir
                         Console.WriteLine("letter : " + letter + " value : " + value);
 
-                        img.SetPixel(i, j, Color.FromArgb(pixel.R, pixel.G, value));
+                        img.SetPixel(i, j, Color.FromArgb(pixel.R, pixel.G, value)); //mavi rengin içine gömüldü veri(B)
                     }
 
                     if (i == img.Width - 1 && j == img.Height - 1)
@@ -74,7 +74,7 @@ namespace SimpleSteganography
             {
                 textBoxFilePath.Text = saveFile.FileName.ToString();
                 pictureBox1.ImageLocation = textBoxFilePath.Text;
-                PSNR_MSE(/*textBoxFilePath.Text*/);
+                //PSNR_MSE(textBoxFilePath.Text);
 
                 img.Save(textBoxFilePath.Text);
             }
@@ -84,7 +84,7 @@ namespace SimpleSteganography
             mesajLabel.Text = bit + " bit gizleyebilirsiniz.";
 
 
-            //PSNR_MSE(textBoxFilePath.Text);
+            PSNR_MSE(textBoxFilePath.Text);
         }
 
         private void buttonDecode_Click(object sender, EventArgs e)
@@ -122,11 +122,11 @@ namespace SimpleSteganography
 
 
 
-        private void PSNR_MSE(/*string ts*/)
+        private void PSNR_MSE(string ts)
         {
             Bitmap NImage = new Bitmap("C:/Users/HP/Desktop/SimpleSteganography/lena.png");
-            Bitmap OImage = new Bitmap("C:/Users/HP/Desktop/SimpleSteganography/lena.png");
-            if (OImage == NImage) { Console.WriteLine("Image"); }
+            Bitmap OImage = new Bitmap(ts);
+            //if (OImage == NImage) { Console.WriteLine("Image"); }
 
 
             double PSNR = 0;
@@ -190,7 +190,7 @@ namespace SimpleSteganography
             double S255_Mse = S255 / MSE;
             double Lo = Math.Log10(S255_Mse);
 
-            PSNR = 10 * Lo;
+            PSNR = 20 * Lo;
 
             MSELabel.Text = MSE.ToString();
             PSNRLabel.Text = PSNR.ToString();
